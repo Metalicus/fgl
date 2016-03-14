@@ -1,0 +1,17 @@
+<!-- <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="224dp"
+    android:height="224dp"
+    android:viewportWidth="224"
+    android:viewportHeight="224">
+
+    <path
+        android:fillColor="#000000"
+        android:pathData="M74.5,221c0,1.657,1.344,3,3,3h69c1.656,0,3-1.343,3-3c0-10.739-0.855-20.304-1.76-30.43
+c-1.05-11.756-2.24-25.081-2.24-42.57c0-32.075,3.958-143.769,3.998-144.894c0.029-0.813-0.273-1.604-0.84-2.19
+C148.094,0.331,147.314,0,146.5,0h-69c-0.815,0-1.594,0.331-2.158,0.916c-0.566,0.586-0.869,1.377-0.84,2.19
+C74.542,4.231,78.5,115.925,78.5,148c0,17.488-1.19,30.814-2.24,42.57C75.354,200.696,74.5,210.261,74.5,221z
+M126.25,12.833h7.166 V36h-7.166V12.833z M126.25,46h7.166v23.166h-7.166V46z
+M112,128.333c8.284,0,15,6.715,15,15c0,8.284-6.716,15-15,15
+c-8.285,0-15-6.716-15-15C97,135.048,103.715,128.333,112,128.333z" />
+</vector>

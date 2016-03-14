@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF9F9F9"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Diablo III"
+        android:id="@+id/gameRowItemTitle"
+        android:layout_alignParentTop="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/colorPrimaryText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12.10.2015"
+        android:id="@+id/gameRowFinishedDate"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/colorSecondaryText"
+        android:layout_alignTop="@+id/gameRowPlatformName"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Playstation 4"
+        android:id="@+id/gameRowPlatformName"
+        android:layout_below="@+id/gameRowItemTitle"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/colorSecondaryText" />
+
+</RelativeLayout>
