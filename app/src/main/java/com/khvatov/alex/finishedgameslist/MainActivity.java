@@ -43,6 +43,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (savedInstanceState == null) {
+            final MenuItem item = navigationView.getMenu().getItem(0);
+            item.setChecked(true);
+            onNavigationItemSelected(item);
+        }
     }
 
     @Override
@@ -87,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
         switch (id) {
             case R.id.console_list:
                 fragmentTransaction.replace(R.id.fragment_container, new PlatformListFragment());
@@ -96,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.replace(R.id.fragment_container, new GamesListFragment());
                 break;
         }
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         setTitle(item.getTitle());
         drawer.closeDrawer(GravityCompat.START);
