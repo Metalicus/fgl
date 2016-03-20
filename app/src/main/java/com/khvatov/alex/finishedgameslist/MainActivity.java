@@ -1,9 +1,11 @@
 package com.khvatov.alex.finishedgameslist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +18,9 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String FRAGMENT_PLATFORM_LIST = "FRAGMENT_PLATFORM_LIST";
+    public static final String FRAGMENT_GAME_LIST = "FRAGMENT_GAME_LIST";
+
     private DrawerLayout drawer;
 
     @Override
@@ -27,11 +32,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //noinspection ConstantConditions
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                final Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                final String tag = fragment.getTag();
+                switch (tag) {
+                    case FRAGMENT_PLATFORM_LIST:
+                        Snackbar.make(view, "FRAGMENT_PLATFORM_LIST", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        break;
+                    case FRAGMENT_GAME_LIST:
+                        final Intent intent = new Intent(MainActivity.this, GameDetailActivity.class);
+                        startActivity(intent);
+                        break;
+                }
             }
         });
 
@@ -42,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //noinspection ConstantConditions
         navigationView.setNavigationItemSelectedListener(this);
 
         if (savedInstanceState == null) {
@@ -95,10 +111,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (id) {
             case R.id.console_list:
-                fragmentTransaction.replace(R.id.fragment_container, new PlatformListFragment());
+                fragmentTransaction.replace(R.id.fragment_container, new PlatformListFragment(), FRAGMENT_PLATFORM_LIST);
                 break;
             case R.id.games_list:
-                fragmentTransaction.replace(R.id.fragment_container, new GamesListFragment());
+                fragmentTransaction.replace(R.id.fragment_container, new GamesListFragment(), FRAGMENT_GAME_LIST);
                 break;
         }
         fragmentTransaction.commit();
