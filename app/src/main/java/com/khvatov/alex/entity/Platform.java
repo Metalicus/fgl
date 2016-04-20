@@ -8,9 +8,6 @@ public class Platform {
     private long id;
     private String name;
 
-    public Platform() {
-    }
-
     public Platform(long id, String name) {
         this.id = id;
         this.name = name;

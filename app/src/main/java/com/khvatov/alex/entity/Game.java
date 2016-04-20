@@ -12,9 +12,6 @@ public class Game {
     private String name;
     private Date finishedDate;
 
-    public Game() {
-    }
-
     public Game(long id, Platform platform, String name, Date finishedDate) {
         this.id = id;
         this.platform = platform;
@@ -30,14 +27,23 @@ public class Game {
         this.id = id;
     }
 
+    /**
+     * @return platform on which game was finished
+     */
     public Platform getPlatform() {
         return platform;
     }
 
+    /**
+     * @return name of the game
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return date when game was finished
+     */
     public Date getFinishedDate() {
         return finishedDate;
     }

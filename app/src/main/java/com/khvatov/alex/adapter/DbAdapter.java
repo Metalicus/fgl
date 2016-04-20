@@ -41,7 +41,7 @@ public class DbAdapter implements AutoCloseable {
             + GAME_COLUMN_ID + " integer primary key autoincrement, "
             + GAME_COLUMN_PLATFORM_ID + " integer not null, "
             + GAME_COLUMN_NAME + " text not null, "
-            + GAME_COLUMN_DATE + " integer not null);";
+            + GAME_COLUMN_DATE + " integer);";
     private final static String SELECT_ALL_GAMES = "SELECT " + GAME_TABLE + "." + GAME_COLUMN_ID + "," +
             GAME_TABLE + "." + GAME_COLUMN_NAME + "," +
             GAME_TABLE + "." + GAME_COLUMN_DATE + "," +
@@ -99,7 +99,7 @@ public class DbAdapter implements AutoCloseable {
         final ContentValues values = new ContentValues(3);
         values.put(GAME_COLUMN_PLATFORM_ID, platform.getId());
         values.put(GAME_COLUMN_NAME, name);
-        values.put(GAME_COLUMN_DATE, finishedDate.getTime());
+        values.put(GAME_COLUMN_DATE, finishedDate == null ? null : finishedDate.getTime());
 
         final long id = database.insert(GAME_TABLE, null, values);
 
@@ -129,6 +129,7 @@ public class DbAdapter implements AutoCloseable {
         try (final Cursor cursor = database.rawQuery(SELECT_ALL_GAMES, null)) {
             Long platformId;
             Platform platform;
+            Date finishedDate;
             for (cursor.moveToLast(); !cursor.isBeforeFirst(); cursor.moveToPrevious()) {
                 platformId = cursor.getLong(3);
                 if (!platformMap.containsKey(platformId)) {
@@ -137,7 +138,12 @@ public class DbAdapter implements AutoCloseable {
                 } else
                     platform = platformMap.get(platformId);
 
-                games.add(new Game(cursor.getLong(0), platform, cursor.getString(1), new Date(cursor.getLong(2))));
+                if (cursor.isNull(2))
+                    finishedDate = null;
+                else
+                    finishedDate = new Date(cursor.getLong(2));
+
+                games.add(new Game(cursor.getLong(0), platform, cursor.getString(1), finishedDate));
             }
 
         }

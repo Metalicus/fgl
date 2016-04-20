@@ -18,17 +18,13 @@ import android.widget.EditText;
 import com.khvatov.alex.adapter.DbAdapter;
 import com.khvatov.alex.dialog.PlatformSelectDialog;
 import com.khvatov.alex.entity.Platform;
+import com.khvatov.alex.utils.Const;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class GameDetailActivity extends AppCompatActivity implements
         PlatformSelectDialog.PlatformSelectListener, DatePickerDialog.OnDateSetListener {
-
-    private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-
 
     private Platform platform;
     private Date date;
@@ -85,66 +81,29 @@ public class GameDetailActivity extends AppCompatActivity implements
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         this.date = c.getTime();
-        editDate.setText(DATE_FORMAT.format(date));
+        editDate.setText(Const.DATE_FORMAT.format(date));
     }
 
     private void saveGame() {
-        if (!validate())
+        if (TextUtils.isEmpty(editName.getText()) || platform == null) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.validation_title));
+            builder.setMessage(getString(R.string.game_validation_message));
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(android.R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
             return;
+        }
 
         try (final DbAdapter adapter = new DbAdapter(getBaseContext())) {
             adapter.open();
             adapter.createGame(editName.getText().toString(), date, platform);
         }
-    }
-
-    private boolean validate() {
-        if (TextUtils.isEmpty(editName.getText())) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Warning");
-            builder.setMessage("Name of a game can not be empty");
-            final AlertDialog alertDialog = builder.create();
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
-            return false;
-        }
-
-        if (platform == null) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Warning");
-            builder.setMessage("Platform of a game can not be empty");
-            final AlertDialog alertDialog = builder.create();
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
-            return false;
-        }
-
-        if (date == null) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Warning");
-            builder.setMessage("Finished date can not be empty");
-            final AlertDialog alertDialog = builder.create();
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
-            return false;
-        }
-
-        return true;
     }
 
     private void showSelectPlatformDialog() {

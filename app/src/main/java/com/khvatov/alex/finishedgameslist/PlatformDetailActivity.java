@@ -37,10 +37,10 @@ public class PlatformDetailActivity extends AppCompatActivity {
     private void savePlatform() {
         if (TextUtils.isEmpty(edtName.getText())) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Warning");
-            builder.setMessage("Name of a platform can not be empty");
+            builder.setTitle(getString(R.string.validation_title));
+            builder.setMessage(getString(R.string.platform_validation_message));
             final AlertDialog alertDialog = builder.create();
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(android.R.string.ok),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();

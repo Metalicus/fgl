@@ -9,17 +9,14 @@ import android.widget.TextView;
 
 import com.khvatov.alex.entity.Game;
 import com.khvatov.alex.finishedgameslist.R;
+import com.khvatov.alex.utils.Const;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Adapter for Game list
  */
 public class GameListAdapter extends ArrayAdapter<Game> {
-
-    private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
 
     public GameListAdapter(Context context, List<Game> games) {
         super(context, 0, games);
@@ -42,12 +39,13 @@ public class GameListAdapter extends ArrayAdapter<Game> {
         } else
             viewHolder = (ViewHolder) convertView.getTag();
 
+        final String unknownDate = getContext().getString(R.string.unknown_date);
+
         viewHolder.name.setText(game.getName());
         viewHolder.platform.setText(game.getPlatform().getName());
-        viewHolder.date.setText(game.getFinishedDate() == null ? "" : DATE_FORMAT.format(game.getFinishedDate()));
+        viewHolder.date.setText(game.getFinishedDate() == null ? unknownDate : Const.DATE_FORMAT.format(game.getFinishedDate()));
 
         return convertView;
-
     }
 
     private static class ViewHolder {

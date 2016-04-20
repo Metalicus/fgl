@@ -2,6 +2,9 @@
     <string name="app_name">Finished Games List</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
     <string name="platform_dialog_title">Select a platform…</string>
+    <string name="unknown_date">unknown</string>
+    <string name="validation_title">Warning</string>
+    <string name="platform_validation_message">Name of a platform can not be empty</string>
+    <string name="game_validation_message">Name or platform of a game can not be empty</string>
 </resources>
