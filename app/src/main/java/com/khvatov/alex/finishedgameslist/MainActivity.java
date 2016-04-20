@@ -1,5 +1,7 @@
 package com.khvatov.alex.finishedgameslist;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.khvatov.alex.utils.Exporter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -83,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final int id = item.getItemId();
         if (id == R.id.settings) {
             // todo: open settings
+            export();
+
             drawer.closeDrawer(GravityCompat.START);
             return true;
         }
@@ -101,5 +107,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    private void export() {
+        //todo: remove before production
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Are you sure?");
+        builder.setMessage("Are you sure you want to export data to Android Studio console?");
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Exporter.exportToConsole(MainActivity.this);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.create().show();
     }
 }

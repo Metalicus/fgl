@@ -28,7 +28,6 @@ public class PlatformDetailActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     savePlatform();
-                    backToMainActivity();
                 }
             });
         }
@@ -39,20 +38,20 @@ public class PlatformDetailActivity extends AppCompatActivity {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(getString(R.string.validation_title));
             builder.setMessage(getString(R.string.platform_validation_message));
+            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             final AlertDialog alertDialog = builder.create();
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(android.R.string.ok),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
             alertDialog.show();
-            return;
-        }
-
-        try (final DbAdapter adapter = new DbAdapter(getBaseContext())) {
-            adapter.open();
-            adapter.createPlatform(edtName.getText().toString());
+        } else {
+            try (final DbAdapter adapter = new DbAdapter(getBaseContext())) {
+                adapter.open();
+                adapter.createPlatform(edtName.getText().toString());
+            }
+            backToMainActivity();
         }
     }
 

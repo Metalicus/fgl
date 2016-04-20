@@ -62,7 +62,6 @@ public class GameDetailActivity extends AppCompatActivity implements
                 @Override
                 public void onClick(View v) {
                     saveGame();
-                    backToMainActivity();
                 }
             });
         }
@@ -89,20 +88,20 @@ public class GameDetailActivity extends AppCompatActivity implements
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(getString(R.string.validation_title));
             builder.setMessage(getString(R.string.game_validation_message));
+            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             final AlertDialog alertDialog = builder.create();
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(android.R.string.ok),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
             alertDialog.show();
-            return;
-        }
-
-        try (final DbAdapter adapter = new DbAdapter(getBaseContext())) {
-            adapter.open();
-            adapter.createGame(editName.getText().toString(), date, platform);
+        } else {
+            try (final DbAdapter adapter = new DbAdapter(getBaseContext())) {
+                adapter.open();
+                adapter.createGame(editName.getText().toString(), date, platform);
+            }
+            backToMainActivity();
         }
     }
 
