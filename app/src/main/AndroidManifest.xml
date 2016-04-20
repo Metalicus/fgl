@@ -20,6 +20,9 @@
         <activity
             android:name=".GameDetailActivity"
             android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".PlatformDetailActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

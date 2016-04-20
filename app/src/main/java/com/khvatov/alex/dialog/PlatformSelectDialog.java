@@ -8,12 +8,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
+import com.khvatov.alex.adapter.DbAdapter;
 import com.khvatov.alex.adapter.PlatformListAdapter;
 import com.khvatov.alex.entity.Platform;
 import com.khvatov.alex.finishedgameslist.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Modal dialog with platform list
@@ -25,32 +23,28 @@ public class PlatformSelectDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final List<Platform> platforms = new ArrayList<>();
-        platforms.add(new Platform("Playstation 3"));
-        platforms.add(new Platform("Playstation 4"));
-        platforms.add(new Platform("PSP"));
-        platforms.add(new Platform("PSVita"));
-        platforms.add(new Platform("Sega Mega Drive 2"));
-        platforms.add(new Platform("Dendy"));
+        try (final DbAdapter adapter = new DbAdapter(getContext())) {
+            adapter.open();
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.platform_dialog_title);
-        final PlatformListAdapter adapter = new PlatformListAdapter(getActivity(), platforms);
-        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-                listener.onSelect(adapter.getItem(which));
-            }
-        });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-                listener.onSelect(null);
-            }
-        });
-        return builder.create();
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(R.string.platform_dialog_title);
+            final PlatformListAdapter listAdapter = new PlatformListAdapter(getActivity(), adapter.getPlatforms());
+            builder.setAdapter(listAdapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                    listener.onSelect(listAdapter.getItem(which));
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                    listener.onSelect(null);
+                }
+            });
+            return builder.create();
+        }
     }
 
     @Override

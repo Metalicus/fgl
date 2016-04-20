@@ -36,7 +36,6 @@ public class GameDetailActivity extends AppCompatActivity implements
         editName = (EditText) findViewById(R.id.gameDetailName);
 
         editDate = (EditText) findViewById(R.id.gameDetailFinishDate);
-        //noinspection ConstantConditions
         editDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +44,6 @@ public class GameDetailActivity extends AppCompatActivity implements
         });
 
         editPlatform = (EditText) findViewById(R.id.gameDetailPlatform);
-        //noinspection ConstantConditions
         editPlatform.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -38,15 +37,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 final Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
                 final String tag = fragment.getTag();
+                final Intent intent;
                 switch (tag) {
                     case FRAGMENT_PLATFORM_LIST:
-                        Snackbar.make(view, "FRAGMENT_PLATFORM_LIST", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        intent = new Intent(MainActivity.this, PlatformDetailActivity.class);
                         break;
                     case FRAGMENT_GAME_LIST:
-                        final Intent intent = new Intent(MainActivity.this, GameDetailActivity.class);
-                        startActivity(intent);
+                        intent = new Intent(MainActivity.this, GameDetailActivity.class);
                         break;
+                    default:
+                        throw new RuntimeException("Unknown activity tag: " + tag);
                 }
+                startActivity(intent);
             }
         });
 

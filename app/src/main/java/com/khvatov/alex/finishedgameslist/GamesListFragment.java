@@ -19,9 +19,9 @@ public class GamesListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final Platform ps4 = new Platform("Playstation 4");
-        final Platform pc = new Platform("PC");
-        final Platform psp = new Platform("PSP");
+        final Platform ps4 = new Platform(1, "Playstation 4");
+        final Platform pc = new Platform(2, "PC");
+        final Platform psp = new Platform(3, "PSP");
 
         final List<Game> games = new ArrayList<>();
         games.add(new Game(ps4, "Diablo III", new Date()));
