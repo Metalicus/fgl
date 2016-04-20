@@ -17,8 +17,7 @@ public class PlatformListFragment extends ListFragment {
         try (final DbAdapter dbAdapter = new DbAdapter(getActivity().getBaseContext())) {
             dbAdapter.open();
             adapter = new PlatformListAdapter(getActivity(), dbAdapter.getPlatforms());
+            setListAdapter(adapter);
         }
-
-        setListAdapter(adapter);
     }
 }

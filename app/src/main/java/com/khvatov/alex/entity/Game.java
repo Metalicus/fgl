@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Game {
 
-    private int id;
+    private long id;
     private Platform platform;
     private String name;
     private Date finishedDate;
@@ -15,17 +15,18 @@ public class Game {
     public Game() {
     }
 
-    public Game(Platform platform, String name, Date finishedDate) {
+    public Game(long id, Platform platform, String name, Date finishedDate) {
+        this.id = id;
         this.platform = platform;
         this.name = name;
         this.finishedDate = finishedDate;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

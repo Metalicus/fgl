@@ -2,20 +2,26 @@ package com.khvatov.alex.finishedgameslist;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.khvatov.alex.adapter.DbAdapter;
 import com.khvatov.alex.dialog.PlatformSelectDialog;
-import com.khvatov.alex.entity.Game;
 import com.khvatov.alex.entity.Platform;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class GameDetailActivity extends AppCompatActivity implements
@@ -23,7 +29,10 @@ public class GameDetailActivity extends AppCompatActivity implements
 
     private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
 
-    private Game game = new Game();
+
+    private Platform platform;
+    private Date date;
+
     private EditText editPlatform;
     private EditText editName;
     private EditText editDate;
@@ -50,11 +59,22 @@ public class GameDetailActivity extends AppCompatActivity implements
                 showSelectPlatformDialog();
             }
         });
+
+        final Button btnSave = (Button) findViewById(R.id.gameDetailSave);
+        if (btnSave != null) {
+            btnSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    saveGame();
+                    backToMainActivity();
+                }
+            });
+        }
     }
 
     @Override
     public void onSelect(Platform platform) {
-        game.setPlatform(platform);
+        this.platform = platform;
         editPlatform.setText(platform == null ? "" : platform.getName());
     }
 
@@ -64,8 +84,67 @@ public class GameDetailActivity extends AppCompatActivity implements
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        game.setFinishedDate(c.getTime());
-        editDate.setText(DATE_FORMAT.format(game.getFinishedDate()));
+        this.date = c.getTime();
+        editDate.setText(DATE_FORMAT.format(date));
+    }
+
+    private void saveGame() {
+        if (!validate())
+            return;
+
+        try (final DbAdapter adapter = new DbAdapter(getBaseContext())) {
+            adapter.open();
+            adapter.createGame(editName.getText().toString(), date, platform);
+        }
+    }
+
+    private boolean validate() {
+        if (TextUtils.isEmpty(editName.getText())) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Warning");
+            builder.setMessage("Name of a game can not be empty");
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+            return false;
+        }
+
+        if (platform == null) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Warning");
+            builder.setMessage("Platform of a game can not be empty");
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+            return false;
+        }
+
+        if (date == null) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Warning");
+            builder.setMessage("Finished date can not be empty");
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+            return false;
+        }
+
+        return true;
     }
 
     private void showSelectPlatformDialog() {
@@ -76,6 +155,11 @@ public class GameDetailActivity extends AppCompatActivity implements
     private void showDatePickerDialog() {
         final DatePickerFragment dialog = new DatePickerFragment(this);
         dialog.show(getSupportFragmentManager(), "DatePickerFragment");
+    }
+
+    private void backToMainActivity() {
+        final Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     public static class DatePickerFragment extends DialogFragment {
