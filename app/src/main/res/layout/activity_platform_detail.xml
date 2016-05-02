@@ -9,19 +9,26 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.khvatov.alex.finishedgameslist.PlatformDetailActivity">
 
-    <EditText
-        android:id="@+id/platformDetailName"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/platformDetailInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Platform name" />
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/platformDetailName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/platform_edit_name" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/platformDetailSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/platformDetailName"
+        android:layout_alignEnd="@+id/platformDetailInputLayout"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:text="Save platform" />
+        android:text="@string/platform_edit_save" />
 
 </RelativeLayout>

@@ -7,4 +7,10 @@
     <string name="validation_title">Warning</string>
     <string name="platform_validation_message">Name of a platform can not be empty</string>
     <string name="game_validation_message">Name or platform of a game can not be empty</string>
+    <string name="game_edit_name">Game name</string>
+    <string name="game_edit_platform">Platform</string>
+    <string name="game_edit_finish_date">Finish date</string>
+    <string name="game_edit_save">Save game</string>
+    <string name="platform_edit_name">Platform name</string>
+    <string name="platform_edit_save">Save platform</string>
 </resources>

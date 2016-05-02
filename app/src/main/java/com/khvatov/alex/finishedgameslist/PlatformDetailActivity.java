@@ -3,25 +3,25 @@ package com.khvatov.alex.finishedgameslist;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.khvatov.alex.adapter.DbAdapter;
 
 public class PlatformDetailActivity extends AppCompatActivity {
 
-    private EditText edtName;
+    private TextInputEditText edtName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_platform_detail);
 
-        edtName = (EditText) findViewById(R.id.platformDetailName);
+        edtName = (TextInputEditText) findViewById(R.id.platformDetailName);
         final Button btnSave = (Button) findViewById(R.id.platformDetailSave);
         if (btnSave != null) {
             btnSave.setOnClickListener(new View.OnClickListener() {

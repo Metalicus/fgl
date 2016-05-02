@@ -9,43 +9,64 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.khvatov.alex.finishedgameslist.GameDetailActivity">
 
-    <EditText
-        android:id="@+id/gameDetailName"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/gameDetailNameLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Game name" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/gameDetailPlatform"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:layout_below="@+id/gameDetailName"
-        android:layout_alignParentStart="true"
-        android:drawableRight="@android:drawable/arrow_down_float"
-        android:hint="Platform"
-        android:clickable="true" />
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/gameDetailName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/game_edit_name" />
 
-    <EditText
-        android:id="@+id/gameDetailFinishDate"
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/gameDetailPlatformLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:layout_below="@+id/gameDetailPlatform"
-        android:layout_alignParentStart="true"
-        android:drawableRight="@android:drawable/arrow_down_float"
-        android:hint="Finish date"
-        android:clickable="true" />
+        android:layout_below="@+id/gameDetailNameLayout"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/gameDetailPlatform"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:layout_alignParentStart="true"
+            android:clickable="true"
+            android:hint="@string/game_edit_platform" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/gameDetailFinishDateLayout"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/gameDetailPlatformLayout"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/gameDetailFinishDate"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:layout_alignParentStart="true"
+            android:clickable="true"
+            android:hint="@string/game_edit_finish_date" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/gameDetailSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/gameDetailFinishDate"
+        android:layout_alignEnd="@+id/gameDetailFinishDateLayout"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:text="Save game" />
+        android:text="@string/game_edit_save" />
 
 </RelativeLayout>
