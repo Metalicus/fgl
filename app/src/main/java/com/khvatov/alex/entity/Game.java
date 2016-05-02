@@ -7,6 +7,11 @@ import java.util.Date;
  */
 public class Game {
 
+    public final static String ID = "id";
+    public final static String PLATFORM = "platform";
+    public final static String NAME = "name";
+    public final static String FINISHED_DATE = "finishedDate";
+
     private long id;
     private Platform platform;
     private String name;

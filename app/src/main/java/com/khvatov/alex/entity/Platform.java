@@ -1,9 +1,11 @@
 package com.khvatov.alex.entity;
 
+import java.io.Serializable;
+
 /**
  * Entity represented Platform
  */
-public class Platform {
+public class Platform implements Serializable {
 
     private long id;
     private String name;

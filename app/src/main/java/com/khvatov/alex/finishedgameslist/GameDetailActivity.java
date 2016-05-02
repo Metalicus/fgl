@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 
 import com.khvatov.alex.adapter.DbAdapter;
 import com.khvatov.alex.dialog.PlatformSelectDialog;
+import com.khvatov.alex.entity.Game;
 import com.khvatov.alex.entity.Platform;
 import com.khvatov.alex.utils.Const;
 
@@ -23,6 +24,7 @@ import java.util.Date;
 public class GameDetailActivity extends AppCompatActivity implements
         PlatformSelectDialog.PlatformSelectListener, DatePickerDialog.OnDateSetListener {
 
+    private Long id;
     private Platform platform;
     private Date date;
 
@@ -62,12 +64,35 @@ public class GameDetailActivity extends AppCompatActivity implements
                 }
             });
         }
+
+        final Intent intent = getIntent();
+        final Bundle extras = intent.getExtras();
+        if (extras != null && extras.containsKey(Game.ID)) {
+            id = extras.getLong(Game.ID);
+            platform = (Platform) extras.getSerializable(Game.PLATFORM);
+            date = (Date) extras.getSerializable(Game.FINISHED_DATE);
+
+            updatePlatformUI();
+            updateDateUI();
+            editName.setText(extras.getString(Game.NAME));
+        } else {
+            date = new Date();
+            updateDateUI();
+        }
+    }
+
+    private void updatePlatformUI() {
+        editPlatform.setText(platform == null ? "" : platform.getName());
+    }
+
+    private void updateDateUI() {
+        editDate.setText(Const.DATE_FORMAT.format(date));
     }
 
     @Override
     public void onSelect(Platform platform) {
         this.platform = platform;
-        editPlatform.setText(platform == null ? "" : platform.getName());
+        updatePlatformUI();
     }
 
     @Override
@@ -77,7 +102,7 @@ public class GameDetailActivity extends AppCompatActivity implements
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         this.date = c.getTime();
-        editDate.setText(Const.DATE_FORMAT.format(date));
+        updateDateUI();
     }
 
     private void saveGame() {
@@ -94,9 +119,15 @@ public class GameDetailActivity extends AppCompatActivity implements
             final AlertDialog alertDialog = builder.create();
             alertDialog.show();
         } else {
+
             try (final DbAdapter adapter = new DbAdapter(getBaseContext())) {
                 adapter.open();
-                adapter.createGame(editName.getText().toString(), date, platform);
+
+                if (id != null) {
+                    adapter.updateGame(id, editName.getText().toString(), date, platform);
+                } else {
+                    adapter.createGame(editName.getText().toString(), date, platform);
+                }
             }
             backToMainActivity();
         }
