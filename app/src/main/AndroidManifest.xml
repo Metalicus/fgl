@@ -19,9 +19,11 @@
         </activity>
         <activity
             android:name=".GameDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".PlatformDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".MainActivity" />
     </application>
 

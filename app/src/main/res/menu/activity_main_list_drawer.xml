@@ -5,18 +5,18 @@
         <item
             android:id="@+id/games_list"
             android:icon="@drawable/ic_menu_games"
-            android:title="Games" />
+            android:title="@string/drawer_games" />
         <item
             android:id="@+id/console_list"
             android:icon="@drawable/ic_menu_console"
-            android:title="Platforms" />
+            android:title="@string/drawer_platforms" />
     </group>
 
-    <group android:checkableBehavior="none">
+<!--    <group android:checkableBehavior="none">
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_menu_settings"
             android:title="Settings" />
-    </group>
+    </group>-->
 
 </menu>

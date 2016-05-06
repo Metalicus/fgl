@@ -5,12 +5,18 @@
     <string name="platform_dialog_title">Select a platform…</string>
     <string name="unknown_date">unknown</string>
     <string name="validation_title">Warning</string>
+    <string name="delete_title">Are you sure?</string>
+    <string name="delete_game_message">Are you sure you want to delete this Game?</string>
     <string name="platform_validation_message">Name of a platform can not be empty</string>
-    <string name="game_validation_message">Name or platform of a game can not be empty</string>
+    <string name="game_validation_message_name">Name of a game can not be empty</string>
+    <string name="game_validation_message_platform">Platform of a game can not be empty</string>
     <string name="game_edit_name">Game name</string>
     <string name="game_edit_platform">Platform</string>
     <string name="game_edit_finish_date">Finish date</string>
     <string name="game_edit_save">Save game</string>
+    <string name="game_edit_delete">Delete game</string>
     <string name="platform_edit_name">Platform name</string>
     <string name="platform_edit_save">Save platform</string>
+    <string name="drawer_games">Games</string>
+    <string name="drawer_platforms">Platforms</string>
 </resources>

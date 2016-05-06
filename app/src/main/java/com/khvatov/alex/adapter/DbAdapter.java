@@ -141,6 +141,17 @@ public class DbAdapter implements AutoCloseable {
     }
 
     /**
+     * Delete existing game object in database
+     *
+     * @param id id of existing game
+     * @return {@code true} if game was deleted
+     * @see Game
+     */
+    public boolean deleteGame(long id) {
+        return database.delete(GAME_TABLE, GAME_COLUMN_ID + "=?", new String[]{String.valueOf(id)}) == 1;
+    }
+
+    /**
      * @return collection of all Platforms stored in database
      * @see Platform
      */

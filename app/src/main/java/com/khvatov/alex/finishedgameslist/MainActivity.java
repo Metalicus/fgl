@@ -85,13 +85,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // settings was selected
         final int id = item.getItemId();
-        if (id == R.id.settings) {
+/*        if (id == R.id.settings) {
             // todo: open settings
             export();
 
             drawer.closeDrawer(GravityCompat.START);
             return true;
-        }
+        }*/
 
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (id) {
