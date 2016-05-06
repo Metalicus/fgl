@@ -67,12 +67,8 @@ public class PlatformDetailActivity extends AppCompatActivity {
                     adapter.createPlatform(edtName.getText().toString());
                 }
             }
-            backToMainActivity();
-        }
-    }
 
-    private void backToMainActivity() {
-        final Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+            onBackPressed();
+        }
     }
 }

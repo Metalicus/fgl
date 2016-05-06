@@ -129,7 +129,8 @@ public class GameDetailActivity extends AppCompatActivity implements
                     adapter.createGame(editName.getText().toString(), date, platform);
                 }
             }
-            backToMainActivity();
+
+            onBackPressed();
         }
     }
 
@@ -148,10 +149,4 @@ public class GameDetailActivity extends AppCompatActivity implements
         final DatePickerDialog dialog = new DatePickerDialog(this, this, year, month, day);
         dialog.show();
     }
-
-    private void backToMainActivity() {
-        final Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
 }
