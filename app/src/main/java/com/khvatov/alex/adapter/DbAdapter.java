@@ -87,6 +87,21 @@ public class DbAdapter implements AutoCloseable {
     }
 
     /**
+     * Update existing platform object in database
+     *
+     * @param id   id of existing platform
+     * @param name name of the new platform
+     * @return {@code true} if platform was updated
+     * @see Platform
+     */
+    public boolean updatePlatform(long id, String name) {
+        final ContentValues values = new ContentValues(1);
+        values.put(PLATFORM_COLUMN_NAME, name);
+
+        return database.update(PLATFORM_TABLE, values, PLATFORM_COLUMN_ID + "=?", new String[]{String.valueOf(id)}) == 1;
+    }
+
+    /**
      * Create and insert new instance of Game object
      *
      * @param name         name of the game

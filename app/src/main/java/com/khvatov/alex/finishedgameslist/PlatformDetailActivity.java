@@ -11,8 +11,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.khvatov.alex.adapter.DbAdapter;
+import com.khvatov.alex.entity.Game;
+import com.khvatov.alex.entity.Platform;
 
 public class PlatformDetailActivity extends AppCompatActivity {
+
+    private Long id;
 
     private TextInputEditText edtName;
 
@@ -30,6 +34,13 @@ public class PlatformDetailActivity extends AppCompatActivity {
                     savePlatform();
                 }
             });
+        }
+
+        final Intent intent = getIntent();
+        final Bundle extras = intent.getExtras();
+        if (extras != null && extras.containsKey(Platform.ID)) {
+            id = extras.getLong(Game.ID);
+            edtName.setText(extras.getString(Platform.NAME));
         }
     }
 
@@ -49,7 +60,12 @@ public class PlatformDetailActivity extends AppCompatActivity {
         } else {
             try (final DbAdapter adapter = new DbAdapter(getBaseContext())) {
                 adapter.open();
-                adapter.createPlatform(edtName.getText().toString());
+
+                if (id != null) {
+                    adapter.updatePlatform(id, edtName.getText().toString());
+                } else {
+                    adapter.createPlatform(edtName.getText().toString());
+                }
             }
             backToMainActivity();
         }

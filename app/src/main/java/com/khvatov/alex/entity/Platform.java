@@ -7,6 +7,9 @@ import java.io.Serializable;
  */
 public class Platform implements Serializable {
 
+    public final static String ID = "id";
+    public final static String NAME = "name";
+
     private long id;
     private String name;
 
