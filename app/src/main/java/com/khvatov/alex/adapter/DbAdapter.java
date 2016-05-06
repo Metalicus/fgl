@@ -102,6 +102,18 @@ public class DbAdapter implements AutoCloseable {
     }
 
     /**
+     * Delete existing platform object in database
+     *
+     * @param id id of existing platform
+     * @return {@code true} if platform was deleted
+     * @see Platform
+     */
+    public boolean deletePlatform(long id) {
+        // todo: remove cascading. return false if platform is in use
+        return database.delete(PLATFORM_TABLE, PLATFORM_COLUMN_ID + "=?", new String[]{String.valueOf(id)}) == 1;
+    }
+
+    /**
      * Create and insert new instance of Game object
      *
      * @param name         name of the game

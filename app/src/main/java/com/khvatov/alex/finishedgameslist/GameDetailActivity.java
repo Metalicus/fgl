@@ -63,7 +63,7 @@ public class GameDetailActivity extends AppCompatActivity implements
             }
         });
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.game_edit_toolbar);
         setSupportActionBar(toolbar);
 
         final ActionBar ab = getSupportActionBar();
